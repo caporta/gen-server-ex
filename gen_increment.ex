@@ -3,23 +3,24 @@ defmodule GenIncrement do
 
   # Public API
   def start_link do
-    GenServer.start_link(GenIncrement, [], name: HamSandwich)
+    GenServer.start_link(GenIncrement, [], name: __MODULE__)
+    # Process.register(pid, __MODULE__) done automatically by .start_link
   end
 
-  def increment(pid) do
-    GenServer.cast(pid, {:increment})
+  def increment do
+    GenServer.cast(__MODULE__, {:increment})
   end
 
-  def decrement(pid) do
-    GenServer.cast(pid, {:decrement})
+  def decrement do
+    GenServer.cast(__MODULE__, {:decrement})
   end
 
-  def reset(pid) do
-    GenServer.cast(pid, {:reset})
+  def reset do
+    GenServer.cast(__MODULE__, {:reset})
   end
 
-  def status(pid) do
-    GenServer.call(pid, {:status})
+  def status do
+    GenServer.call(__MODULE__, {:status})
   end
 
 
@@ -46,5 +47,3 @@ defmodule GenIncrement do
     {:reply, reply_with, next_state}
   end
 end
-
-
